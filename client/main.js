@@ -35,12 +35,12 @@ function getArticle() {
       data.forEach(function(item){
         $('tbody#list-of-articles').append(
           `<tr>
-            <td>${item.title}</td>
-            <td>${item.content}</td>
-            <td>${item.author}</td>
+            <td id="title${item._id}">${item.title}</td>
+            <td id="content${item._id}">${item.content}</td>
+            <td id="author${item._id}">${item.author}</td>
             <td>
-              <button class="ui primary basic button" type="button" id="${item._id}" onclick="edit('${item._id}')" name="edit">Edit</button>
-              <button class="ui negative basic button" type="button" id="${item._id}" onclick="destroy('${item._id}')" name="delete">Delete</button>
+              <button class="ui primary basic button" type="button" id="edit${item._id}" onclick="edit('${item._id}')" name="edit">Edit</button>
+              <button class="ui negative basic button" type="button" id="destroy${item._id}" onclick="destroy('${item._id}')" name="delete">Delete</button>
             </td>
           </tr>`
         )
@@ -49,8 +49,18 @@ function getArticle() {
   })
 }
 function edit(id) {
-  $('.ui.modal#modal-form')
+  $('.ui.small.modal#modal-form')
+  .modal({
+    onShow: function(){
+      let toUpdate = $(`td#content${id}`).text()
+      $('textarea[name=update-form]').val(`${toUpdate}`)
+    },
+    onApprove: function(){
+
+    }
+  })
   .modal('show')
+
 }
 function destroy(id){
   $('.ui.basic.modal#delete-confirm')

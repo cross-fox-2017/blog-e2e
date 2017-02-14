@@ -12,7 +12,6 @@ $('#login-form').on('submit', function(e){
     dataType: 'json',
     success: function (data) {
       localStorage.setItem('token', data.token)
-      console.log(location);
       window.location.href = `${location}main.html`
     }
   })
