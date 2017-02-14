@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <!-- font -->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <title>Radit's Mini Blog</title>
+  </head>
+  <body>
+    <div class="container">
+
+      <h1 class="text-center">Radit's Mini Blog</h1>
+      <br />
+      <form class="form-horizontal">
+
+        <div class="form-group">
+            <label for="title" class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-10">
+              <input id="title-input" type="text" class="form-control" id="title" placeholder="Title">
+            </div>
+        </div>
+
+        <div class="form-group">
+          <label for="author" class="col-sm-2 control-label">Author</label>
+          <div class="col-sm-10">
+            <input id="author-input" type="text" class="form-control" id="author" placeholder="Author">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="article" class="col-sm-2 control-label">Article</label>
+          <div class="col-sm-10">
+            <textarea id="article-input" type="text" class="form-control" id="article" placeholder="Article" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="category" class="col-sm-2 control-label">Category</label>
+          <div class="col-sm-10">
+            <input id="category-input" type="text" class="form-control" id="category" placeholder="category" rows="3"></input>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button onclick="newPost()" type="submit" class="waves-effect btn">Submit</button>
+          </div>
+        </div>
+      </form>
+
+      <div id="posted" class="col s12 m8">
+
+      </div>
+
+    </div>
+    <script>
+    $(document).ready(function() {
+      $.ajax({
+        url  : "http://localhost:3000/blogs",
+        type : "GET",
+        success: function(result) {
+          console.log(result);
+          var arrTemp = ""
+          for (var i = 0; i < result.length; i++){
+            arrTemp += `<div class="card horizontal">
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h4>${result[i].title}</h4>
+                  <p class="porsted-author">By : ${result[i].author}</p>
+                  <hr />
+                </div>
+                <div class="card-content">
+                  <p class="posted-article">${result[i].article}</p>
+                </div>
+                <div class="card-content">
+                  <p>Category : <div class="chip">${result[i].category}</div></p>
+                </div>
+                <div class="card-action">
+                  <button id="delete-article${i}" type="submit" class="waves-effect  red btn pull-right">Delete</button>
+                  <button id="update-article${i}" type="submit" class="waves-effect blue btn pull-right">Update</button>
+                </div>
+              </div>
+            </div>`
+          }
+          $('#posted').append(arrTemp)
+        }
+    })
+  })
+
+  function newPost() {
+    $(document).ready(function(){
+      $.ajax({
+        url  : "http://localhost:3000/blogs/new",
+        type : "POST",
+        data: {
+          title     : $('#title-input').val(),
+          author    : $('#author-input').val(),
+          article   : $('#article-input').val(),
+          category  : $('#category-input').val()
+        },
+        success: function(result) {
+          var postTemp = ""
+            postTemp += `<div class="card horizontal">
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h4>${result.title}</h4>
+                  <p class="porsted-author">By : ${result.author}</p>
+                  <hr />
+                </div>
+                <div class="card-content">
+                  <p class="posted-article">${result.article}</p>
+                </div>
+                <div class="card-content">
+                  <p>Category : <div class="chip">${result.category}</div></p>
+                </div>
+                <div class="card-action">
+                  <button id="delete-article${i}" type="submit" class="waves-effect  red btn pull-right">Delete</button>
+                  <button id="update-article${i}" type="submit" class="waves-effect blue btn pull-right">Update</button>
+                </div>
+              </div>
+            </div>`
+
+          $('#posted').prepend(postTemp)
+        }
+      })
+    })
+  }
+    </script>
+  </body>
+</html>

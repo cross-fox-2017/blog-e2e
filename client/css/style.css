@@ -1,0 +1,11 @@
+button {
+    margin: 2px;
+}
+
+.posted-article{
+  font-size: 20px
+}
+
+.posted-author{
+  color: rgb(116, 116, 116)
+}
