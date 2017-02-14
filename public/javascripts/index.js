@@ -46,7 +46,7 @@ function getArticles () {
                 <h1 id="title-${i+1}" class="card-title">${article.title}</h1>
                 <p id="content-${i+1}">${article.content}</p>
               </div>
-              <div class="card-action">
+              <div class="card-action" style="display: flex; justify-content: space-around;">
                 <a class="btn" id="update-${i+1}" href="/update/${article._id}">Update</a>
                 <button id="delete-${i+1}" class="btn" data-target="modal1" onclick="setIdDel('${article._id}')">Delete</button>
               </div>
