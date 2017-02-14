@@ -106,13 +106,13 @@
         $('#table_content').append(
           `
           <tr>
-            <td>${data[i].title}</td>
+            <td class="title">${data[i].title}</td>
             <td>${data[i].author}</td>
             <td>${data[i].description}</td>
             <td>${data[i].created_at}</td>
             <td>
-              <button id="delete_blog_${i}" onclick="delete_blog('${data[i]._id}', ${i})" class="waves-effect waves-light red darken-1 btn"><i class="material-icons left">delete</i>Delete Blog</button>
-              <button id="update_blog_${i}" onclick="update_blog('${data[i]._id}', '${data[i].title}', '${data[i].author}', '${data[i].description}', ${i})" class="waves-effect blue darken waves-light btn"><i class="material-icons left">update</i>Update Blog</button>
+              <button id="delete_blog_${i}" onclick="delete_blog('${data[i]._id}', ${i})" class="delete waves-effect waves-light red darken-1 btn"><i class="material-icons left">delete</i>Delete Blog</button>
+              <button id="update_blog_${i}" onclick="update_blog('${data[i]._id}', '${data[i].title}', '${data[i].author}', '${data[i].description}', ${i})" class="update waves-effect blue darken waves-light btn"><i class="material-icons left">update</i>Update Blog</button>
             </td>
           </tr>
           `
@@ -151,13 +151,13 @@
           $('#table_content').append(
             `
             <tr>
-              <td>${data.title}</td>
+              <td class="title">${data.title}</td>
               <td>${data.author}</td>
               <td>${data.description}</td>
               <td>${data.created_at}</td>
               <td>
-                <button id="delete_blog_${index}" onclick="delete_blog('${data._id}', ${index})" class="waves-effect waves-light red darken-1 btn"><i class="material-icons left">delete</i>Delete Blog</button>
-                <button id="update_blog_${index}" onclick="update_blog('${data._id}', '${data.title}', '${data.author}', '${data.description}', ${index})" class="waves-effect blue darken waves-light btn"><i class="material-icons left">update</i>Update Blog</button>
+                <button id="delete_blog_${index}" onclick="delete_blog('${data._id}', ${index})" class="delete waves-effect waves-light red darken-1 btn"><i class="material-icons left">delete</i>Delete Blog</button>
+                <button id="update_blog_${index}" onclick="update_blog('${data._id}', '${data.title}', '${data.author}', '${data.description}', ${index})" class="update waves-effect blue darken waves-light btn"><i class="material-icons left">update</i>Update Blog</button>
               </td>
             </tr>
             `
@@ -185,9 +185,9 @@
   // update blog
   $('#submit_blog_update').hide()
     function update_blog(id, title, author, desc, i) {
-      $('#title').val(title)
-      $('#author').val(author)
-      $('#description').val(desc)
+      // $('#title').val(title)
+      // $('#author').val(author)
+      // $('#description').val(desc)
       $('#submit_blog_add').hide()
       $('#submit_blog_update').show()
 
@@ -209,13 +209,13 @@
             $('#submit_blog_update').hide()
             $('#table_content tr').last().html(
               `
-              <td>${data.title}</td>
+              <td class="title">${data.title}</td>
               <td>${data.author}</td>
               <td>${data.description}</td>
               <td>${data.created_at}</td>
               <td>
-                <button id="delete_blog_${index}" onclick="delete_blog('${data._id}', ${index-1})" class="waves-effect waves-light red darken-1 btn"><i class="material-icons left">delete</i>Delete Blog</button>
-                <button id="update_blog_${index}" onclick="update_blog('${data._id}', '${data.title}', '${data.author}', '${data.description}', ${index-1})" class="waves-effect blue darken waves-light btn"><i class="material-icons left">update</i>Update Blog</button>
+                <button id="delete_blog_${index}" onclick="delete_blog('${data._id}', ${index-1})" class="delete waves-effect waves-light red darken-1 btn"><i class="material-icons left">delete</i>Delete Blog</button>
+                <button id="update_blog_${index}" onclick="update_blog('${data._id}', '${data.title}', '${data.author}', '${data.description}', ${index-1})" class="update waves-effect blue darken waves-light btn"><i class="material-icons left">update</i>Update Blog</button>
               </td>
               `
             )
