@@ -10,4 +10,6 @@ router.get('/show',Artikel.show)
 
 router.delete('/delete',Artikel.delete)
 
+router.put('/update',Artikel.update)
+
 module.exports = router;

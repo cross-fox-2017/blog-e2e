@@ -30,6 +30,22 @@ var Artikels = {
     res.send({
         status: "Data Terhapus"
     })
+  },
+  update: function(req, res, next) {
+    modelsArtikel.findOneAndUpdate({
+      _id: req.body.id
+    },{
+      title: req.body.title,
+      isi: req.body.isi,
+      author: req.body.author
+    },{
+      new: true
+    }).then(function(err, result) {
+        if(err)res.send(err)
+        else {
+          res.send(result)
+        }
+    })
   }
 }
 

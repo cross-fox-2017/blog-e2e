@@ -9,57 +9,85 @@
     <link rel="stylesheet" href="/css/semantic.min.css">
     <title>Blog E2E and TDD</title>
 </head>
+
 <body>
-  <div class="ui container containerTOP">
-      <div class="boxTodos">
-          <form class="ui form">
-              <div class="field">
-                  <label>Title</label>
-                  <input type="text" id="title" placeholder="Title">
-              </div>
-              <div class="Todos">
-                  <label>Description</label>
-                  <textarea id="isi" rows="3"></textarea>
-              </div>
-              <div class="Todos">
-                  <label>Author</label>
-                  <input type="text" id="author" placeholder="author">
-              </div>
-          </form>
-          <div class="submitTodo five ui buttons">
-              <button onclick="postArtikel()" class="positive ui button">Add New</button>
-          </div>
+    <div class="ui container containerTOP">
+        <div class="boxTodos">
+            <form class="ui form">
+                <div class="field">
+                    <label>Title</label>
+                    <input type="text" id="title" placeholder="Title">
+                </div>
+                <div class="Todos">
+                    <label>Description</label>
+                    <textarea id="isi" rows="3"></textarea>
+                </div>
+                <div class="Todos">
+                    <label>Author</label>
+                    <input type="text" id="author" placeholder="author">
+                </div>
+            </form>
+            <div class="submitTodo five ui buttons">
+                <button onclick="postArtikel()" class="positive ui button">Add New</button>
+            </div>
 
-      </div>
+        </div>
 
-      <table class="ui celled table">
-          <thead>
-              <tr>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Author</th>
-                  <th>Action</th>
-              </tr>
-          </thead>
-          <tbody id="listtodo">
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Author</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="listtodo">
 
-          </tbody>
-          <tfoot class="full-width">
-              <tr>
-                  <!-- <th></th> -->
-                  <th colspan="4">
-                      <div class="buttonStatus">
-                          <div class="ui buttons">
-                              <button onclick="checkAction('remove')" class="ui red button">Remove</button>
-                              <div class="or"></div>
-                              <button onclick="checkAction('update')" class="ui positive button">Update</button>
-                          </div>
-                      </div>
-                  </th>
-              </tr>
-          </tfoot>
-      </table>
-  </div>
+            </tbody>
+            <tfoot class="full-width">
+                <tr>
+                    <!-- <th></th> -->
+                    <th colspan="4">
+                        <div class="buttonStatus">
+                            <div class="ui buttons">
+                                <button onclick="checkAction('remove')" class="ui red button">Remove</button>
+                                <div class="or"></div>
+                                <button onclick="checkAction('update')" class="ui positive button">Update</button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div class="ui modal">
+            <i class="close icon"></i>
+            <div class="header">
+                Form Update Artikel
+            </div>
+            <form class="ui form formUpdate">
+                <input type="hidden" id="idUpdate" placeholder="Title">
+                <div class="field">
+                    <input type="text" id="titleUpdate" placeholder="Title">
+                </div>
+                <div class="field">
+                    <textarea id="isiUpdate" placeholder="Description" rows="3"></textarea>
+                </div>
+                <div class="field">
+                    <input type="text" id="authorUpdate" placeholder="author">
+                </div>
+            </form>
+            <div class="actions">
+                <div onclick="runningUpdate()" class="ui positive right labeled icon button">
+                    Update
+                    <i class="checkmark icon"></i>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 
 
 
