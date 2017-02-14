@@ -3,11 +3,11 @@ const should = require('chai').should();
 
 
 describe('Testing Artikel Add', function() {
-  this.timeout(10000);
+    this.timeout(30000);
     it('Testing Add Artikel', function(done) {
-      var nightmare = Nightmare({
-          show: true
-      })
+        var nightmare = Nightmare({
+            show: true
+        })
         nightmare
             .goto('http://127.0.0.1:8080/artikel.html')
             .wait("#title") //"input[type=text]" // "[name=nameTitle]" // "input[name=nameTitle]"
@@ -32,11 +32,11 @@ describe('Testing Artikel Add', function() {
 })
 
 describe('Testing Artikel Edit', function() {
-  this.timeout(10000);
+    this.timeout(30000);
     it('Testing Edit Artikel', function(done) {
-      var nightmare = Nightmare({
-          show: true
-      })
+        var nightmare = Nightmare({
+            show: true
+        })
         nightmare
             .goto('http://127.0.0.1:8080/artikel.html')
             .wait('input[type="checkbox"')
@@ -46,7 +46,8 @@ describe('Testing Artikel Edit', function() {
             .click("#titleUpdate")
             .type("#titleUpdate", " Update")
             .click("#isiUpdate")
-            .type("#isiUpdate", ' Update')
+            .insert("#isiUpdate", "")
+            .type("#isiUpdate", 'Perjalanan Update')
             .click("#authorUpdate")
             .type("#authorUpdate", " Update")
             .click("div[onclick='runningUpdate()']")
@@ -62,8 +63,27 @@ describe('Testing Artikel Edit', function() {
     })
 })
 
-// it('Testing Delete Artikel', function(done) {
-//
-// })
-
-// document.querySelector('input[type=text]')
+describe('Testing Artikel Delete', function() {
+    this.timeout(30000);
+    it('Testing Delete Artikel', function(done) {
+        var nightmare = Nightmare({
+            show: true
+        })
+        nightmare
+            .goto('http://127.0.0.1:8080/artikel.html')
+            .wait('input[type="checkbox"')
+            .click('input[type="checkbox"')
+            .click("button[class='ui red button']")
+            .click('button[class="confirm"]')
+            .wait(2000)
+            .click('button[class="confirm"]')
+            .evaluate(function() {
+                return document.querySelector('h2').innerHTML
+            })
+            .end()
+            .then(function(result) {
+                result.should.be.equal("Deleted!")
+                done()
+            })
+    })
+})
