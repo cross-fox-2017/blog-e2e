@@ -16,7 +16,6 @@ let userController = {
     })
   },
   login: function(req, res){
-    console.log(req.body);
     let username =  req.body.username
     let password = req.body.password
     users.findOne({username: username}).then(function(user){

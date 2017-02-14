@@ -1,5 +1,4 @@
 $(document).ready(function(){
-
 })
 
 $('#login-form').on('submit', function(e){
@@ -12,8 +11,9 @@ $('#login-form').on('submit', function(e){
     data: {username: username, password: password},
     dataType: 'json',
     success: function (data) {
-      $('#tester').append(`<p>${data.token}</p>`)
-      alert('masuk')
+      localStorage.setItem('token', data.token)
+      console.log(location);
+      window.location.href = `${location}main.html`
     }
   })
 })
