@@ -13,9 +13,9 @@ describe('test new article',function(){
     .click('[name=story]')
     .type('[name=story]','masukkan ayamnya goreng dengan bawangnya...nah hidupin apinya tunggu 1 jam jadilah ayam bawang')
     .click('[name=newpost]')
-    .wait('#idpost')
+    .wait('[name=idpost]')
     .evaluate(function(){
-      return document.querySelector('#idpost').innerHTML
+      return document.querySelector('span.card-title').innerHTML
     })
     .end()
     .then(function(result){
