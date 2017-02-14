@@ -56,19 +56,11 @@ function buatArtikel () {
   })
 }
 
-function hapusArtikel (xx) {
+function hapusArtikel (xxx) {
   $.ajax({
     type: 'DELETE',
-    url: 'http://localhost:3000/artikel/'+xx,
-    data: {
-      judul : $('#judul').val(),
-      isi : $('#isi').val(),
-      penulis : $('#penulis').val()
-    },
+    url: 'http://localhost:3000/artikel/'+xxx,
     success: function (data) {
-      $('#judul').val(""),
-      $('#isi').val(""),
-      $('#penulis').val(""),
       ready()
     },
     error: function (err) {
