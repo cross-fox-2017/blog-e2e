@@ -52,6 +52,8 @@ function ready () {
           </div>
         </div>
 
+        
+
         `
       }
       $('#wrapper').html(table)
