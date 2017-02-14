@@ -31,7 +31,7 @@ function getArticles () {
     success: function (resp) {
       for (var i = 0; i < resp.length; i++) {
         let article = resp[i]
-        $('#add-cart').append(
+        $('#add-card').append(
           `<div class="col s4 m4">
             <div class="card blue-grey darken-1">
               <div class="card-content white-text">

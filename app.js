@@ -13,7 +13,8 @@ var app = express()
 // ====== Session ======
 var session = require('express-session')
 app.use(session({
-  secret: '1234567890abcdefghijklmnopqrstuvwxyz'
+  secret: '1234567890abcdefghijklmnopqrstuvwxyz',
+  cookie: {maxAge: 60000000}
 }))
 
 // ====== Cors ======
