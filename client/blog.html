@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+ <html>
+   <head>
+     <!--Import Google Icon Font-->
+     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <!-- Compiled and minified CSS -->
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+     <!-- custome css -->
+     <style media="screen">
+       .item{
+         height: 250px;
+       }
+       nav{
+         margin-bottom: 20px;
+       }
+       .w-b{
+         word-break: break-word;
+       }
+     </style>
+     <!--Let browser know website is optimized for mobile-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+     <title>Berbagi blog</title>
+   </head>
+
+   <body>
+     <!-- modal -->
+
+     <!-- Modal create -->
+     <div id="modal1" class="modal">
+       <div class="modal-content">
+         <h4 class="blue-text">CREATE YOUR AWESOME BLOG HERE</h4>
+         <!-- form create -->
+         <div class="row">
+           <form class="col s12">
+             <div class="row">
+               <div class="input-field col s6">
+                 <input placeholder="Ex: Berbagi Blogs" id="create-blog-title" type="text" class="validate">
+                 <label for="blog_title">Blog Title</label>
+               </div>
+               <div class="input-field col s6">
+                 <input placeholder="Ex: Yoni setiawan" id="create-author-name" type="text" class="validate">
+                 <label for="author_name">Author Name</label>
+               </div>
+             </div>
+             <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="create-text-blog" class="materialize-textarea" data-length="360"></textarea>
+                  <label for="textarea1">Blog Content</label>
+                </div>
+              </div>
+           </form>
+         </div>
+         <!-- form -->
+       </div>
+       <div class="modal-footer">
+         <a class="modal-action modal-close waves-effect waves-green btn-flat" onclick="createBlog()">Create</a>
+       </div>
+     </div>
+
+     <!-- modal edit -->
+     <div id="modal2" class="modal">
+       <div id="form-edit"></div>
+     </div>
+
+     <!-- navbar -->
+     <nav>
+        <div class="nav-wrapper blue">
+          <a href="#" class="brand-logo center">BerbagiBlog.com</a>
+          <ul id="nav-mobile" class="right">
+            <li><a class="waves-effect waves-light btn green" href="#modal1">Create Blog</a></li>
+          </ul>
+        </div>
+      </nav>
+     <!-- navbar -->
+
+     <!-- content -->
+     <div class="container">
+       <div class="row" id="blog-list"></div>
+     </div>
+
+     <!--Import jQuery before materialize.js-->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     <!-- Compiled and minified JavaScript -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+     <!-- custome javascript -->
+     <script type="text/javascript">
+     var count = 1;
+     $(document).ready(function(){
+        // active modal
+        $('.modal').modal();
+        // fix tiban text
+        Materialize.updateTextFields();
+
+        // get all blog
+        $.ajax({
+          url: "http://localhost:3000/api/blogs",
+          type: "GET",
+          success: function( result ) {
+            var temp = "";
+            for (var i = 0; i < result.length; i++) {
+              temp +=
+              `
+                <div class="item col s4" id ="${result[i]._id}">
+                  <div class="card darken-1">
+                    <div class="card-content">
+                      <span class="card-title blue-text">${result[i].title}</span>
+                      <hr>
+                      <p class="w-b">${result[i].text}</p>
+                      <hr>
+                      <p class="red-text right">${result[i].author}</p>
+                    </div>
+                    <div class="card-action">
+                      <a href="#modal2" onclick="preEdit('${result[i]._id}')">EDIT</a>
+                      <a class="delete-blog" onclick="deleteBlog('${result[i]._id}')">DELETE</a>
+                    </div>
+                  </div>
+                </div>
+              `
+            }
+            $('#blog-list').prepend(temp)
+          }
+        });
+
+      });
+
+      function risetFormCreate(){
+        $('#create-author-name').val('')
+        $('#create-blog-title').val('')
+        $('#create-text-blog').val('')
+      }
+
+      function createBlog(){
+        $.ajax({
+          url: "http://localhost:3000/api/blogs",
+          type: "POST",
+          data: {
+            blogid: count,
+            author: $('#create-author-name').val(),
+            title: $('#create-blog-title').val(),
+            text: $('#create-text-blog').val()
+          },
+          success: function( result ) {
+            let temp =
+            `
+              <div class="item col s4" id ="${result._id}">
+                <div class="card darken-1">
+                  <div class="card-content white-text">
+                    <span class="card-title blue-text">${result.title}</span>
+                    <hr>
+                    <p class="w-b black-text">${result.text}</p>
+                    <hr>
+                    <p class="red-text right">${result.author}</p>
+                  </div>
+                  <div class="card-action">
+                    <a href="#modal2" onclick="preEdit('${result._id}')">EDIT</a>
+                    <a class="delete-blog" onclick="deleteBlog('${result._id}')">DELETE</a>
+                  </div>
+                </div>
+              </div>
+            `
+            $('#blog-list').prepend(temp)
+            risetFormCreate()
+            count++
+          }
+        });
+      }
+
+      // delete
+      function deleteBlog(id){
+        $.ajax({
+          url: "http://localhost:3000/api/blogs",
+          type: "DELETE",
+          data: {
+            objid: id
+          },
+          success: function( result ) {
+            $(`#${result._id}`).remove();
+          }
+        });
+      }
+
+      // reset from edit
+      function resetFormEdit(){
+        $('#remove-form-edit').remove()
+      }
+
+      // pre edit
+      function preEdit(id){
+        resetFormEdit()
+        let title = $(`#${id} span`)[0].innerHTML
+        let text = $(`#${id} p`)[0].innerHTML
+        let author = $(`#${id} p`)[1].innerHTML
+        let temp =
+        `
+        <div id="remove-form-edit">
+          <div class="modal-content">
+            <h4 class="blue-text">EDIT YOUR AWESOME BLOG HERE</h4>
+            <div class="row">
+              <form class="col s12">
+                <div class="row">
+                  <div class="input-field col s6">
+                    <input placeholder="Ex: Berbagi Blogs" id="edit-blog-title" type="text" class="validate" value="${title}">
+                    <label for="blog_title" class="active">Blog Title</label>
+                  </div>
+                  <div class="input-field col s6">
+                    <input placeholder="Ex: Yoni setiawan" id="edit-author-name" type="text" class="validate" value="${author}">
+                    <label for="author_name" class="active">Author Name</label>
+                  </div>
+                </div>
+                <div class="row">
+                   <div class="input-field col s12">
+                     <textarea id="edit-text-blog" class="materialize-textarea" data-length="360">${text}</textarea>
+                     <label for="textarea1" class="active">Blog Content</label>
+                   </div>
+                 </div>
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="editBlog('${id}')">SAVE</a>
+          </div>
+        </div>
+        `
+        $('#form-edit').append(temp)
+      }
+
+      // edit
+      function editBlog(id){
+        $.ajax({
+          url: "http://localhost:3000/api/blogs",
+          type: "PUT",
+          data: {
+            id: id,
+            title: $('#edit-blog-title').val(),
+            author: $('#edit-author-name').val(),
+            text: $('#edit-text-blog').val()
+          },
+          success: function( result ) {
+            $(`#${result._id} span`)[0].innerHTML = result.title
+            $(`#${result._id} p`)[0].innerHTML = result.text
+            $(`#${result._id} p`)[1].innerHTML = result.author
+          }
+        })
+      }
+
+     </script>
+   </body>
+ </html>
