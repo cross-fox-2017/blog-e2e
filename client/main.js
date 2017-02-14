@@ -49,10 +49,12 @@ function getArticle() {
   })
 }
 function edit(id) {
-  return id
+  $('.ui.modal#modal-form')
+  .modal('show')
 }
 function destroy(id){
-  $('.ui.basic.modal').modal('setting', {
+  $('.ui.basic.modal#delete-confirm')
+  .modal('setting', {
     onApprove : function() {
       $.ajax({
         method: 'DELETE',
