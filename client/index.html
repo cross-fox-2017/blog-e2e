@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>BLOG - Materialize</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <div class="navbar-fixed">
+    <nav class="teal accent-3" role="navigation">
+      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo pacifico-font">QBlog</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#blog-posts" class="black-text">POSTS</a></li>
+        </ul>
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#blog-posts"class="black-text">POSTS</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+  </div>
+
+  <div class="section no-pad-bot teal lighten-4" id="blog-form">
+    <div class="container">
+      <br><br>
+      <h5 class="header center black-text pacifico-font">Blog Forms</h5>
+        <br><br>
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s6">
+                <i class="material-icons prefix">turned_in_not</i>
+                <input id="subject" type="text">
+                <label for="subject">Subject</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">mode_edit</i>
+                <textarea id="article" class="materialize-textarea"></textarea>
+                <label for="article">Article</label>
+              </div>
+            </div>
+          </form>
+          <button class="btn waves-effect waves-light right" onclick="newPost()">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      <br><br>
+    </div>
+  </div>
+
+
+  <div class="section no-pad-bot">
+    <div class="container">
+      <br><br>
+      <h5 class="header center black-text pacifico-font">Blog Posts</h5>
+        <br><br>
+        <div class="row" id="blog-posts">
+        </div>
+      <br><br>
+    </div>
+  </div>
+
+
+
+  <footer class="page-footer teal accent-4">
+    <div class="footer-copyright">
+      <div class="container">
+      Made by <a class="black-text text-lighten-3 pacifico-font" href="http://qblol.github.io/semantic-web">qblol</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <script src="js/init.js"></script>
+  <script src="js/script.js" charset="utf-8"></script>
+  </body>
+</html>
