@@ -18,7 +18,10 @@ const userController = {
       password: passwordHash.generate(req.body.password)
     }, (err, user) => {
       if (err) throw err
-      res.json(user)
+      res.json({
+        msg: 'Input new user success!',
+        user: user
+      })
     })
   },
   signIn: (req, res) => {

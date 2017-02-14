@@ -44,7 +44,7 @@
           </div>
           <div class="card-reveal">
             <span class="card-title grey-text text-darken-4" id="close_register"><i class="material-icons right">close</i></span>
-            <div id="login_message">
+            <div id="register_message">
               <!-- <div class="card-panel teal lighten-2 col s10 message">abc</div> -->
             </div>
             <form id="input_register" class="col s12">
@@ -52,16 +52,16 @@
                 <br>
                 <div class="input-field col s10 offset-s1">
                   <i class="material-icons prefix">account_circle</i>
-                  <input id="username" type="text" name="username" class="validate">
-                  <label for="username">Username</label>
+                  <input id="register_username" type="text" name="username" class="validate">
+                  <label for="register_username">Username</label>
                 </div>
                 <div class="input-field col s10 offset-s1" style="margin-bottom:30px;">
                   <i class="material-icons prefix">vpn_key</i>
-                  <input id="password" type="tel" name="password" class="validate">
-                  <label for="password">Password</label>
+                  <input id="register_password" type="password" name="password" class="validate">
+                  <label for="register_password">Password</label>
                 </div>
                 <div class="row">
-                  <button class="waves-effect waves-light btn" type="submit"><i class="material-icons left">input</i>Register</button>
+                  <button class="waves-effect waves-light btn" id="register_submit" type="submit"><i class="material-icons left">input</i>Register</button>
                 </div>
               </div>
             </form>
@@ -83,11 +83,24 @@
     })
     $('#close_register').click(function(){
       $('#card_height').css('height', '400px')
+      $('#register_message').html('')
+      $('#register_password').val('')
+      $('#register_username').val('')
     })
 
-    $.ajax({
-      type: 'POST'
+    $('#register_submit').click(function(e){
+      e.preventDefault()
+      $.ajax({
+        type: 'POST',
+        url: 'http://localhost:3000/api/users',
+        data: $('#input_register').serialize(),
+        dataType: 'json',
+        success: function(data){
+          $('#register_message').append(`<div class="card-panel teal lighten-2 col s10 message">${data.msg}</div>`)
+        }
+      })
     })
+
   </script>
   </body>
 </html>
