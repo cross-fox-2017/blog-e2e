@@ -34,6 +34,23 @@
     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
   </div>
 </div>
+<div id="modalmodalan2" class="modal">
+<div class="modal-content">
+  <h3>my brother,Are you sure want to delete?</h3>
+  <div class="row">
+    <a href="#modalmodalan3" id="yesdelete" class="waves-effect waves-light btn modal-close " onclick="deletePost()">YES</a>
+    <a href="#!" id="nodelete" class="waves-effect waves-light btn modal-close ">NO</a>
+  </div>
+</div>
+</div>
+<div id="modalmodalan3" class="modal">
+<div class="modal-content">
+  <h3 id="titleDelete"></h3>
+  <div class="row">
+    <a href="#!" id="yesdelete" class="waves-effect waves-light btn modal-close " onclick="ok()">OK</a>
+  </div>
+</div>
+</div>
   <div class="container">
 
   <div class="row">
@@ -94,7 +111,7 @@ function showPost(){
                         </div>
                         <div class="card-action">
                           <a class="waves-effect waves-light btn" name="update" href='#modalmodalan' onclick="showUpdate('${data.title}','${data.story}','${data._id}')" >Update</a>
-                          <a class="waves-effect waves-light btn" name="delete" onclick="deletePost('${data._id}')">Delete</a>
+                          <a class="waves-effect waves-light btn" name="delete" href='#modalmodalan2' onclick="showDelete('${data._id}')">Delete</a>
                         </div>
                       </div>
                     </div>
@@ -128,18 +145,26 @@ function showUpdate(title,story,id){
   $('#storyUpdate').val(story)
   $('#idUpdate').val(id)
 }
+function showDelete(id){
+  $('#idUpdate').val(id)
+}
 
-function deletePost(id){
+function deletePost(){
   $.ajax({
     type: 'DELETE',
-    url: `http://localhost:3000/articles/delete/${id}`,
+    url: `http://localhost:3000/articles/delete/${$('#idUpdate').val()}`,
     success: function(resp) {
+      $('#titleDelete').html("Delete Success")
       showPost()
     },
     error: function(error) {
       console.log(error);
     }
   });
+}
+
+function ok(){
+  $('#titleDelete').html('')
 }
 
 function updatePost(){
