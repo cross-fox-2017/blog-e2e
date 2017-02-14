@@ -36,11 +36,11 @@ function getArticle() {
         $('tbody#list-of-articles').append(
           `<tr>
             <td class="title" id="title${item._id}">${item.title}</td>
-            <td id="content${item._id}">${item.content}</td>
+            <td class="content" id="content${item._id}">${item.content}</td>
             <td id="author${item._id}">${item.author}</td>
             <td>
-              <button class="ui primary basic button" type="button" id="edit${item._id}" onclick="edit('${item._id}')" name="edit">Edit</button>
-              <button class="ui negative basic button" type="button" id="destroy${item._id}" onclick="destroy('${item._id}')" name="delete">Delete</button>
+              <button class="ui primary basic button edit" type="button" onclick="edit('${item._id}')" name="edit">Edit</button>
+              <button class="ui negative basic button destroy" type="button" onclick="destroy('${item._id}')" name="delete">Delete</button>
             </td>
           </tr>`
         )
