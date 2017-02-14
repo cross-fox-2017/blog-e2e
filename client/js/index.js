@@ -4,7 +4,7 @@ $(document).ready(function() {
         type: "GET",
         success: function(result) {
             var tampung = "";
-            for (var i = 0; i < result.length; i++) {
+            for (var i = result.length-1; i > 0; i--) {
                 tampung +=
                     `<tr id="trID${result[i]._id}">
                               <td id="idTitle${result[i]._id}">${result[i].title}</td>
