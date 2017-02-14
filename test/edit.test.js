@@ -12,15 +12,15 @@ describe('test crud blog engine', function() {
       .click('button.edit')
       .wait('textarea[name=update-form]')
       .click('textarea[name=update-form]')
-      .type('textarea[name=update-form]', 'Once upon a time there was a young boy that strugling about his daily life but dreams to conquer the world')
-      .click('div.positive')
+      .type('textarea[name=update-form]', ' there was a young boy that dreams to conquer the world')
+      .click('div#update-content')
       .wait(1000)
       .evaluate(function(){
-        return document.querySelector('td.content').last().innerHTML
+        return document.querySelector('td.content').innerHTML
       })
       .end()
       .then(function(result) {
-        expect(result).to.be.equal('Once upon a time there was a young boy that strugling about his daily life but dreams to conquer the world');
+        expect(result).to.be.equal('Once upon a time there was a young boy that dreams to conquer the world');
         done();
       })
   });

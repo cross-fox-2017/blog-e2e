@@ -14,11 +14,11 @@ describe('test crud blog engine', function() {
       .click('input[name=article-author]')
       .type('input[name=article-author]', 'Me and Mu')
       .click('textarea[name=article-content]')
-      .type('textarea[name=article-content]', 'Once upon a time .............')
+      .type('textarea[name=article-content]', 'Once upon a time')
       .click('button#saved')
       .wait(1000)
       .evaluate(function(){
-        return document.querySelector('td.title').last().innerHTML
+        return document.querySelector('td.title').innerHTML
       })
       .end()
       .then(function(result) {
