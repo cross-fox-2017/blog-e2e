@@ -3,12 +3,11 @@ function ready () {
     type: 'GET',
     url: 'http://localhost:3000/artikel',
     success: function (data) {
-      // console.log(data)
-      // console.log(JSON.parse(data))
       let booklist = data
+      let table = ''
       for (var i = 0; i < booklist.length; i++) {
         let item = booklist[i]
-        let table = `<div class="row">
+        table += `<div class="row">
          <div class="col s12 m6">
            <div class="card blue-grey darken-1">
              <div class="card-content white-text">
@@ -26,14 +25,36 @@ function ready () {
            </div>
          </div>
         </div>`
-        $('#wrapper').append(table)
       }
+      $('#wrapper').html(table)
     },
     error: function (err) {
       console.log(err)
     }
   })
 }
+
+function buatArtikel () {
+  $.ajax({
+    type: 'POST',
+    url: 'http://localhost:3000/artikel',
+    data: {
+      judul : $('#judul').val(),
+      isi : $('#isi').val(),
+      penulis : $('#penulis').val()
+    },
+    success: function (data) {
+      $('#judul').val(""),
+      $('#isi').val(""),
+      $('#penulis').val(""),
+      ready()
+    },
+    error: function (err) {
+      console.log(err)
+    }
+  })
+}
+
 
 $(document).ready(function () {
   ready()
