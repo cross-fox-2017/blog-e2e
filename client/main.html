@@ -12,11 +12,44 @@
       integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
       crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.7/semantic.min.js"></script>
-    <title>My Home</title>
+    <title>Article Page</title>
   </head>
   <body>
     <div class="ui container" style="margin: 10%">
-      <h1>Article Page</h1>
-    </div>  
+      <form class="ui form">
+        <h4 class="ui dividing header">Create New Article</h4>
+        <div class="field">
+          <div class="two fields">
+            <div class="field">
+              <label>Title</label>
+              <input name="article-title" placeholder="title" type="text">
+            </div>
+            <div class="field">
+              <label>Author</label>
+              <input name="article-author" placeholder="Author" type="text">
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Content</label>
+          <textarea name="article-content"></textarea>
+        </div>
+        <div class="ui buttons fluid">
+          <button id="canceled" class="ui button">Cancel</button>
+          <div class="or"></div>
+          <button id="saved" class="ui positive button">Save</button>
+        </div>
+      </form>
+      <table class="ui celled padded table">
+        <thead>
+          <th>Title</th>
+          <th>Content</th>
+          <th>Author</th>
+          <th>Action</th>
+        </thead>
+        <tbody id="list-of-articles"></tbody>
+      </table>
+    </div>
+  <script src="main.js"></script>
   </body>
 </html>
