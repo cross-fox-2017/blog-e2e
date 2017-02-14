@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blog Page</title>
+  </head>
+  <!--Import Google Icon Font-->
+  <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <body>
+    <nav class="teal lighten-1" role="navigation">
+      <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">My Blogs</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#">Home</a></li>
+        </ul>
+
+        <ul id="nav-mobile" class="side-nav">
+          <li><a href="#">Home</a></li>
+        </ul>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      </div>
+    </nav>
+
+    <div class="container" style="margin-top: 25px;">
+      <div class="section">
+        <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input placeholder="Input the title here" id="title" name="title" type="text" class="validate">
+                  <label for="title">Title</label>
+                </div>
+                <div class="input-field col s6">
+                  <input placeholder="Input the author name here" id="author" name="author" type="text" class="validate">
+                  <label for="author">Author</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <textarea id="textarea1" name="description" class="materialize-textarea"></textarea>
+                  <label for="textarea1">Description</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col s12">
+                  <button class="waves-effect waves-light btn"><i class="material-icons left">input</i>Submit Blog</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+        <div class="row">
+
+        </div>
+
+        <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Description</th>
+            <th>Published At</th>
+          </tr>
+        </thead>
+        <tbody id="table_content"></tbody>
+      </table>
+      </div>
+    </div>
+
+  <!--Import jQuery before materialize.js-->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+  <script src="js/init.js"></script>
+  </body>
+</html>
