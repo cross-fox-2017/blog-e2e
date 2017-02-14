@@ -16,12 +16,13 @@ let userController = {
     })
   },
   login: function(req, res){
+    console.log(req.body);
     let username =  req.body.username
     let password = req.body.password
     users.findOne({username: username}).then(function(user){
       if(hash.verify(password, user.password)){
         var token = jwt.sign(user, 'superSecret');
-        res.json({token: token})
+        res.json({token: token, user: user.username})
       } else {
         res.send("username or password incorrect")
       }
