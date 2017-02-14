@@ -2,19 +2,32 @@ var express = require('express')
 var router = express.Router()
 const articleController = require('../controllers/articles')
 const userController = require('../controllers/users')
+const sessionVerify = require('../helpers/auth.js')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('pages/main')
 })
 
-router.get('/home', function (req, res, next) {
-  // if(req.body.token)
+router.get('/home', sessionVerify, function (req, res, next) {
   res.render('pages/home')
 })
 
 router.get('/register', function (req, res, next) {
   res.render('pages/register')
+})
+
+router.get('/logout', sessionVerify, function (req, res, next) {
+  req.session.destroy()
+  res.redirect('/')
+})
+
+router.get('/create', function (req, res, next) {
+  res.render('pages/create')
+})
+
+router.get('/update', function (req, res, next) {
+  res.render('pages/update')
 })
 
 router.get('/api', function (req, res, next) {
@@ -45,14 +58,14 @@ router.get('/auth', function (req, res, next) {
   })
 })
 
-router.get('/auth/users', userController.getUsers)
-
 router.post('/auth/register', userController.createUser)
 
-router.put('/auth/users/:id', userController.updateUser)
-
-router.delete('/auth/users/:id', userController.deleteUser)
-
 router.post('/auth/login', userController.verifyUser)
+
+// router.get('/auth/users', userController.getUsers)
+//
+// router.put('/auth/users/:id', userController.updateUser)
+//
+// router.delete('/auth/users/:id', userController.deleteUser)
 
 module.exports = router

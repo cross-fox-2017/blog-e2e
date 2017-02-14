@@ -10,6 +10,12 @@ var users = require('./routes/users')
 
 var app = express()
 
+// ====== Session ======
+var session = require('express-session')
+app.use(session({
+  secret: '1234567890abcdefghijklmnopqrstuvwxyz'
+}))
+
 // ====== Cors ======
 let cors = require('cors')
 app.use(cors())
@@ -37,6 +43,10 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(function (req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0')
+  next()
+})
 
 app.use('/', index)
 app.use('/users', users)

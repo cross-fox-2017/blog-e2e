@@ -3,10 +3,10 @@ const Articles = require('../models/articles')
 module.exports = {
   createArticle: (req, res) => {
     Articles.create({
-      title: req.body.title,
-      content: req.body.content
-    }).then(function (data) {
-      res.send(data)
+      title: req.body.title_create,
+      content: req.body.content_create
+    }).then(function () {
+      res.redirect('/home')
     }).catch(function (err) {
       res.send(err)
     })

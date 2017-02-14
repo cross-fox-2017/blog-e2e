@@ -11,7 +11,6 @@ module.exports = {
       email: req.body.email_reg
     }).then(function () {
       res.redirect('/')
-    // res.send(data)
     }).catch(function (err) {
       res.send(err)
     })
@@ -53,6 +52,7 @@ module.exports = {
     }).then(function (data) {
       if (hash.verify(req.body.password, data.password)) {
         let token = jwt.sign({data}, config.secret, {algorithm: 'HS256'}, {expiresIn: '1h'})
+        req.session.isLogin = true
         res.send({
           s: true,
           token: token
