@@ -3,21 +3,50 @@ const expect = chai.expect
 const Nightmare = require('Nightmare')
 var nightmare = Nightmare({ show: true });
 
-describe('test duckduckgo search results', function() {
-  it('should find the nightmare github link first', function(done) {
+describe('test crud blog engine', function() {
+  it('create new article and expect new article posted on board', function(done) {
     this.timeout(30000)
     nightmare
-      .goto('https://duckduckgo.com')
-      .type('#search_form_input_homepage', 'github nightmare')
-      .click('#search_button_homepage')
-      .wait('#zero_click_wrapper .c-info__title a')
-      .evaluate(function () {
-        return document.querySelector('#zero_click_wrapper .c-info__title a').href
+      .goto('http://localhost:59720/main.html')
+      .wait('input[name=article-title]')
+      .click('input[name=article-title]')
+      .type('input[name=article-title]', 'The Story of Small Human')
+      .click('input[name=article-author]')
+      .type('input[name=article-author]', 'Me and Mu')
+      .click('textarea[name=article-content]')
+      .type('textarea[name=article-content]', 'Once upon a time .............')
+      .click('button#saved')
+      .wait(1000)
+      .evaluate(function(){
+        return document.querySelector('td.title').innerHTML
       })
       .end()
-      .then(function(link) {
-        expect(link).to.equal('https://github.com/segmentio/nightmare');
+      .then(function(result) {
+        expect(result).to.be.equal('The Story of Small Human');
         done();
       })
   });
+  // it('Expect edited article to be updated', function(done) {
+  //   this.timeout(30000)
+  //   nightmare
+  //     .goto('http://localhost:59720/main.html')
+  //     .click()
+  //     .wait('input[name=article-title]')
+  //     .click('input[name=article-title]')
+  //     .type('input[name=article-title]', 'The Story of Small Human')
+  //     .click('input[name=article-author]')
+  //     .type('input[name=article-author]', 'Me and Mu')
+  //     .click('textarea[name=article-content]')
+  //     .type('textarea[name=article-content]', 'Once upon a time .............')
+  //     .click('button#saved')
+  //     .wait(1000)
+  //     .evaluate(function(){
+  //       return document.querySelector('td.title').innerHTML
+  //     })
+  //     .end()
+  //     .then(function(result) {
+  //       expect(result).to.be.equal('The Story of Small Human');
+  //       done();
+  //     })
+  // });
 });

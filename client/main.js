@@ -35,7 +35,7 @@ function getArticle() {
       data.forEach(function(item){
         $('tbody#list-of-articles').append(
           `<tr>
-            <td id="title${item._id}">${item.title}</td>
+            <td class="title" id="title${item._id}">${item.title}</td>
             <td id="content${item._id}">${item.content}</td>
             <td id="author${item._id}">${item.author}</td>
             <td>
