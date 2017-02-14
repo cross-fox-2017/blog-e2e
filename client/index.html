@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Frontend Testing using nightmare</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.1.1.js"integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>TESTING FRONTEND</h1>
+    <form class="form-horizontal">
+  <div class="form-group">
+    <label class="col-sm-2 control-label">PostID</label>
+    <div class="col-sm-10">
+      <input type="number" class="form-control" id="postid" placeholder="postid">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Author</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="author" placeholder="author">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Title</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="title" placeholder="title">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Description</label>
+    <div class="col-sm-10">
+      <textarea class="form-control" rows="3" id="description"></textarea>
+    </div>
+  </div>
+
+    <div class="form-group">
+      <div id="buttonUpdate" class="col-sm-offset-2 col-sm-10">
+        <button type="button" id="post" class="btn btn-default" onclick="post_artikel()">Post</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <td>PostID</td>
+        <td>Author</td>
+        <td>Title</td>
+        <td>Description</td>
+      </tr>
+    </thead>
+    <tbody id="list_artikel">
+
+    </tbody>
+  </table>
+
+    <script>
+        $.ajax({
+            url: "http://localhost:3000/article",
+            method:"GET",
+            success: function(result) {
+              var temp = ""
+              for(var i=0;i<result.length;i++){
+                temp +=
+                `<tr id="data${result[i].postID}">
+                 <td class='postid'>${result[i].postID}</td>
+                 <td class='author'>${result[i].author}</td>
+                 <td class='title'>${result[i].title}</td>
+                 <td class='body'>${result[i].body}</td>
+
+                 <td><button type="button" class="btn btn-success" id="update${result[i].postID}" onclick="edit('${result[i].postID}')">Update</button>
+                 <button type="button" class="btn btn-danger" id="delete${result[i].postID}" onclick="delete_artikel('${result[i].postID}')">Delete</button></td>
+                 </tr> `
+                }
+                $('#list_artikel').append(temp)
+            }
+        });
+
+      function post_artikel(){
+          $.ajax({
+              url: "http://localhost:3000/article",
+              method:"POST",
+              data:{
+                      postID:$('#postid').val(),
+                      author:$('#author').val(),
+                      title:$('#title').val(),
+                      body:$('#description').val()
+                   },
+              success: function(result) {
+                var temp = `
+                    <tr id="data${result.postID}">
+                      <td class='postid'>${result.postID}</td>
+                      <td class='author'>${result.author}</td>
+                      <td class='title'>${result.title}</td>
+                      <td class='body'>${result.body}</td>
+                      <td><button type="button" class="btn btn-success" id="update${result.postID}" onclick="edit('${result.postID}')">Update</button>
+                      <button type="button" class="btn btn-danger" id="delete${result.postID}" onclick="delete_artikel('${result.postID}')">Delete</button></td>
+                    </tr>  `
+                    $('#list_artikel').append(temp)
+                    $('#postid').val("")
+                    $('#author').val("")
+                    $('#title').val("")
+                    $('#description').val("")
+              }
+          });
+      }
+
+      function delete_artikel(id){
+          $.ajax({
+              url: "http://localhost:3000/article",
+              method:"delete",
+              data:{
+              postID: id
+            },
+              success: function(result) {
+                $(`#data${id}`).remove()
+              }
+          });
+      }
+
+
+      function edit(id){
+          var postid_to_edit = $(`tr#data${id} td.postid`).html()
+          var postauthor_to_edit = $(`tr#data${id} td.author`).html()
+          var posttitle_to_edit = $(`tr#data${id} td.title`).html()
+          var postdescription_to_edit = $(`tr#data${id} td.body`).html()
+          $('#postid').val(postid_to_edit)
+          $('#author').val(postauthor_to_edit)
+          $('#title').val(posttitle_to_edit)
+          $('#description').val(postdescription_to_edit)
+          document.getElementById('buttonUpdate').innerHTML = `<button type="button" id="updateData"  class="btn btn-default" onclick="showButton()">Update</button>`
+          // document.getElementById('post').innerHTML = ""
+      }
+      function showButton(){
+        update_artikel()
+        // document.getElementById('updateData').innerHTML = ""
+        document.getElementById('buttonUpdate').innerHTML = `<button type="button" id ="post" class="btn btn-default" onclick="post_artikel()">Post</button>`
+
+      }
+
+
+
+      function update_artikel(){
+          $.ajax({
+              url: "http://localhost:3000/article",
+              method:"put",
+              data:{
+                      postID:$('#postid').val(),
+                      author:$('#author').val(),
+                      title:$('#title').val(),
+                      body:$('#description').val()
+                   },
+              success: function(result) {
+                var temp = `
+                      <td class='postid'>${result.postID}</td>
+                      <td class='author'>${result.author}</td>
+                      <td class='title'>${result.title}</td>
+                      <td class='body'>${result.body}</td>
+                      <td><button type="button" class="btn btn-success" id="update${result.postID}"onclick="edit('${result.postID}')">Update</button>
+                      <button type="button" class="btn btn-danger" id="delete${result.postID}" onclick="delete_artikel('${result.postID}')">Delete</button></td>
+                    `
+                $(`#data${result.postID}`).html(temp);
+                $('#postid').val("")
+                $('#author').val("")
+                $('#title').val("")
+                $('#description').val("")
+              }
+          });
+      }
+    </script>
+
+
+</body>
+</html>
