@@ -18,7 +18,8 @@ function ready () {
              <div class="card-action">
                <a href="#">${item.penulis}</a>
                <div class="row">
-                 <a class="waves-effect waves-light btn red lighten-2">Delete</a>
+
+                 <a class="waves-effect waves-light btn red lighten-2" onclick="hapusArtikel('${item._id}')">Delete</a>
                  <a class="waves-effect waves-light btn green lighten-2">Update</a>
                </div>
              </div>
@@ -55,6 +56,26 @@ function buatArtikel () {
   })
 }
 
+function hapusArtikel (xx) {
+  $.ajax({
+    type: 'DELETE',
+    url: 'http://localhost:3000/artikel/'+xx,
+    data: {
+      judul : $('#judul').val(),
+      isi : $('#isi').val(),
+      penulis : $('#penulis').val()
+    },
+    success: function (data) {
+      $('#judul').val(""),
+      $('#isi').val(""),
+      $('#penulis').val(""),
+      ready()
+    },
+    error: function (err) {
+      console.log(err)
+    }
+  })
+}
 
 $(document).ready(function () {
   ready()
