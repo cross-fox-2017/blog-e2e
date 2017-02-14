@@ -18,7 +18,7 @@
             <span class="card-title" style="color: #006666;">Sign In</span>
             </br>
             <div class="row">
-              <form class="col s12" method="post">
+              <form id="login-form" class="col s12" method="post" action="/auth/login">
                 <div class="row">
                   <div class="input-field col s12" style="color: #006666;">
                     <input placeholder="Username" id="username" name="username" type="text" class="validate">
@@ -31,12 +31,12 @@
                     <label for="password">Password</label>
                   </div>
                 </div>
+                <button id="login" style="margin:0px 10px;" type="submit" class="waves-effect waves-light btn teal darken-3">Login</button>
               </form>
-              <button style="margin:0px 10px;" onclick="login()" type="submit" class="waves-effect waves-light btn teal darken-3">Login</button>
             </div>
           </div>
           <div class="card-action">
-            <a href="/register"><span class="light-blue-text text-accent-2">Register</span></a>
+            <a href="/register" id="register"><span class="light-blue-text text-accent-2">Register</span></a>
           </div>
         </div>
       </div>

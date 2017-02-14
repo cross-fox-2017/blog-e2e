@@ -17,7 +17,7 @@ router.get('/register', function (req, res, next) {
   res.render('pages/register')
 })
 
-router.get('/logout', function (req, res, next) {
+router.get('/logout', sessionVerify, function (req, res, next) {
   req.session.destroy()
   res.redirect('/')
 })
