@@ -7,7 +7,7 @@ function ready () {
       let table = ''
       for (var i = 0; i < booklist.length; i++) {
         let item = booklist[i]
-        table += `<div class="row">
+        table += `<div class="row" id="item-id-${item._id}">
          <div class="col s6 m6">
            <div class="card blue-grey darken-1">
              <div class="card-content white-text">
@@ -111,7 +111,7 @@ function hapusArtikel (ccc) {
     url: 'http://localhost:3000/artikel/'+ccc,
     success: function (data) {
       alert('Data berhasil dihapus')
-      ready()
+      $(`#item-id-${ccc}`).remove()
     },
     error: function (err) {
       console.log(err)
