@@ -31,7 +31,7 @@ module.exports = {
   },
   deletePost: function(req, res) {
     Post.findOneAndRemove({_id: req.params.id}).then(function(post) {
-      res.json(`Post with id ${req.params.id} has been deleted`)
+      res.json(`Post has been deleted`)
     })
   }
 }

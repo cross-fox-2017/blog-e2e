@@ -5,7 +5,7 @@ const chaiHttp = require('chai-http');
 chai.use(chaiArrays);
 chai.use(chaiHttp);
 
-const models = require('../models/post');
+const models = require('../../server/models/post');
 let tampungId = ""
 
 describe('Testing Posts', function () {
@@ -43,7 +43,7 @@ describe('Testing Posts', function () {
     chai.request('http://localhost:3000')
     .delete(`/delete/post/${tampungId}`)
     .end(function(err,res){
-      res.body.should.be.an('object')
+      res.body.should.equal('Post has been deleted')
       done()
     })
   })

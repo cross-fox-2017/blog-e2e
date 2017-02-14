@@ -18,8 +18,8 @@ function getPost() {
                 <p>${data.text}</p>
               </div>
               <div class="card-action">
-              <a href="#modal-edit-${data._id}"><i class="material-icons">mode_edit</i></a>
-              <a href="#" onclick="deletePost('${data._id}')"><i class="material-icons">delete</i></a>
+              <a name="modaledit" href="#modal-edit-${data._id}"><i class="material-icons">mode_edit</i></a>
+              <a name="delete" href="#" onclick="deletePost('${data._id}')"><i class="material-icons">delete</i></a>
               </div>
             </div>
           </div>
@@ -68,8 +68,8 @@ function newPost() {
               <p>${result.text}</p>
             </div>
             <div class="card-action">
-            <a href="#modal-edit-${result._id}"><i class="material-icons">mode_edit</i></a>
-            <a href="#" onclick="deletePost('${result._id}')"><i class="material-icons">delete</i></a>
+            <a name="modaledit" href="#modal-edit-${result._id}"><i class="material-icons">mode_edit</i></a>
+            <a name="delete" href="#" onclick="deletePost('${result._id}')"><i class="material-icons">delete</i></a>
             </div>
           </div>
         </div>

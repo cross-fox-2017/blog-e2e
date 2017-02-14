@@ -3,7 +3,7 @@ const should = chai.should();
 const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
-const models = require('../models/user');
+const models = require('../../server/models/user');
 
 describe('Testing Users', function () {
   it('should return Schema', function () {
