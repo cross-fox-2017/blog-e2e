@@ -1,7 +1,11 @@
 const Blog = require('../model/artikel');
 module.exports = {
   create : function(req, res, next){
-    Blog.create({judul : req.body.judul, isi : req.body.isi }, function (err, data){
+    Blog.create({
+      judul : req.body.judul,
+      isi : req.body.isi,
+      penulis : req.body.penulis
+    }, function (err, data){
       res.send(data);
     })
   },
