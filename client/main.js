@@ -56,7 +56,14 @@ function edit(id) {
       $('textarea[name=update-form]').val(`${toUpdate}`)
     },
     onApprove: function(){
-
+      let newContent = $('textarea[name=update-form]').val()
+      $.ajax({
+        method: 'PUT',
+        url: `http://localhost:3000/api/articles/${id}`,
+        data: {content: newContent}
+      }).done(function(){
+        getArticle()
+      })
     }
   })
   .modal('show')
