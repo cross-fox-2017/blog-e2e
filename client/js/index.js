@@ -24,6 +24,9 @@ $(document).ready(function() {
 })
 
 function postArtikel() {
+  if ($("#title").val() == "" || $("#isi").val() == "" || $("#author").val() == "") {
+    alert("Mohon Lengkapi Form")
+  }else{
     $.ajax({
         url: "http://localhost:3000/artikel/add",
         type: "POST",
@@ -50,6 +53,7 @@ function postArtikel() {
             $("#author").val('')
         }
     });
+  }
 }
 
 function checkAction(input) {
