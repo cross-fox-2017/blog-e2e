@@ -1,0 +1,25 @@
+{
+  "name": "blog-e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Syanmil/blog-e2e.git"
+  },
+  "author": "Syanmil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Syanmil/blog-e2e/issues"
+  },
+  "homepage": "https://github.com/Syanmil/blog-e2e#readme",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "nightmare": "^2.9.1",
+    "selenium": "^2.20.0",
+    "webdriver": "0.0.1"
+  }
+}
