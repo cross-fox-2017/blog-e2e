@@ -22,7 +22,9 @@ const blogController = {
   deleteBlog: (req, res) => {
     Blogs.findByIdAndRemove(req.params.id, (err, blog) => {
       if (err) throw err
-      res.json(blog)
+      res.json({
+        msg: `Blog ${blog.title} successfully deleted`
+      })
     })
   },
   updateBlog: (req, res) => {

@@ -9,3 +9,7 @@ body {
   color: white;
   font-size: 17px;
 }
+
+.transition {
+  transition: 0.6s
+}

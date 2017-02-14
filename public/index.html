@@ -22,17 +22,17 @@
             <div id="login_message">
               <!-- <div class="card-panel teal lighten-2 col s12 message">abc</div> -->
             </div>
-            <form class="col s12">
+            <form id="login" class="col s12">
               <div class="row">
                 <br>
                 <div class="input-field col s10 offset-s1">
                   <i class="material-icons prefix">account_circle</i>
-                  <input id="username" type="text" name="username" class="validate">
+                  <input id="username" type="text" name="username" class="validate center">
                   <label for="username">Username</label>
                 </div>
                 <div class="input-field col s10 offset-s1" style="margin-bottom:30px;">
                   <i class="material-icons prefix">vpn_key</i>
-                  <input id="password" type="tel" name="password" class="validate">
+                  <input id="password" type="password" name="password" class="validate center">
                   <label for="password">Password</label>
                 </div>
                 <div class="row">
@@ -52,12 +52,12 @@
                 <br>
                 <div class="input-field col s10 offset-s1">
                   <i class="material-icons prefix">account_circle</i>
-                  <input id="register_username" type="text" name="username" class="validate">
+                  <input id="register_username" type="text" name="username" class="validate center">
                   <label for="register_username">Username</label>
                 </div>
                 <div class="input-field col s10 offset-s1" style="margin-bottom:30px;">
                   <i class="material-icons prefix">vpn_key</i>
-                  <input id="register_password" type="password" name="password" class="validate">
+                  <input id="register_password" type="password" name="password" class="validate center">
                   <label for="register_password">Password</label>
                 </div>
                 <div class="row">
@@ -100,7 +100,21 @@
         }
       })
     })
-
+  </script>
+  <script>
+  $('#login').submit(function(e){
+    // e.preventDefault()
+    $.ajax({
+      type: 'POST',
+      url: 'http://localhost:3000/api/users/signin',
+      data: $('#login').serialize(),
+      dataType: 'json',
+      success: function(data){
+        location.href = "http://127.0.0.1:8080/blog.html"
+        localStorage.setItem('jwt-token', data.token)
+      }
+    })
+  })
   </script>
   </body>
 </html>
