@@ -23,10 +23,8 @@ module.exports = {
   updateArticle: (req, res) => {
     Articles.findOneAndUpdate({
       _id: req.params.id
-    }, req.body, {
-      new: true
-    }).then(function (data) {
-      res.send(data)
+    }, {title: req.body.title_update, content: req.body.content_update}).then(function () {
+      res.redirect('/home')
     }).catch(function (err) {
       res.send(err)
     })

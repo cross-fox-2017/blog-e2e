@@ -3,10 +3,10 @@
     <div class="row">
       <h3 style="color: #006666;">Update Article</h3>
       </br>
-      <form action="/api/articles/:id" method="put">
+      <form action="/api/articles/<%= id %>" method="post">
         <div class="form-group">
           <label for="title_update">Title:</label>
-          <input type="text" class="form-control" name="title" id="title_update" value="" placeholder="Title">
+          <input type="text" class="form-control" name="title_update" id="title_update" value="" placeholder="Title">
         </div>
         <div class="form-group">
           <label for="content_update">Content:</label>
@@ -17,7 +17,7 @@
       </br>
       <hr>
       <label>Back to Home</label>
-      <a href="/">HOME</a>
+      <a href="/home">HOME</a>
     </div>
   </div>
 <% include ../partials/footer %>

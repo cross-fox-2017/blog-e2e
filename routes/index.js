@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
   res.render('pages/main')
 })
 
-router.get('/home', sessionVerify, function (req, res, next) {
+router.get('/home', function (req, res, next) {
   res.render('pages/home')
 })
 
@@ -17,7 +17,7 @@ router.get('/register', function (req, res, next) {
   res.render('pages/register')
 })
 
-router.get('/logout', sessionVerify, function (req, res, next) {
+router.get('/logout', function (req, res, next) {
   req.session.destroy()
   res.redirect('/')
 })
@@ -26,8 +26,8 @@ router.get('/create', function (req, res, next) {
   res.render('pages/create')
 })
 
-router.get('/update', function (req, res, next) {
-  res.render('pages/update')
+router.get('/update/:id', function (req, res, next) {
+  res.render('pages/update', {id: req.params.id})
 })
 
 router.get('/api', function (req, res, next) {
@@ -43,7 +43,7 @@ router.get('/api/articles', articleController.getArticles)
 
 router.post('/api/articles', articleController.createArticle)
 
-router.put('/api/articles/:id', articleController.updateArticle)
+router.post('/api/articles/:id', articleController.updateArticle)
 
 router.delete('/api/articles/:id', articleController.deleteArticle)
 
