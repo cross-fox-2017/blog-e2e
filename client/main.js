@@ -39,8 +39,8 @@ function getArticle() {
             <td>${item.content}</td>
             <td>${item.author}</td>
             <td>
-              <button class="ui primary basic button" type="button" id="${item._id}" onclick="edit(${item._id})" name="edit">Edit</button>
-              <button class="ui negative basic button" type="button" id="${item._id}" onclick="destroy(${item._id})" name="delete">Delete</button>
+              <button class="ui primary basic button" type="button" id="${item._id}" onclick="edit('${item._id}')" name="edit">Edit</button>
+              <button class="ui negative basic button" type="button" id="${item._id}" onclick="destroy('${item._id}')" name="delete">Delete</button>
             </td>
           </tr>`
         )
@@ -52,5 +52,14 @@ function edit(id) {
   return id
 }
 function destroy(id){
-  return id
+  $('.ui.basic.modal').modal('setting', {
+    onApprove : function() {
+      $.ajax({
+        method: 'DELETE',
+        url: `http://localhost:3000/api/articles/${id}`
+      }).done(function(){
+        getArticle()
+      })
+    }
+  }).modal('show')
 }
