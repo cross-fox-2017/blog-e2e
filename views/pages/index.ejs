@@ -1,0 +1,18 @@
+<% include ../partials/header %>
+  <table class="table table-bordered">
+    <thead style="background-color: #ccff99;">
+      <th>Id</th>
+      <th>Todo</th>
+      <th>Completed</th>
+      <th>Action</th>
+    </thead>
+    <tbody id="add-todo">
+
+    </tbody>
+  </table>
+  <br/>
+  <label>Add Todo</label>
+  <br/><br/>
+  <input style="width:30%; padding:5.5px; border-radius:3px;" type="text" name="create" placeholder="Write something..">
+  <button type="submit" class="btn btn-success" onclick="createTodo()">Create</button>
+<% include ../partials/footer %>
