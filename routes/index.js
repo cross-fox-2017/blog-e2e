@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
   res.render('pages/main')
 })
 
-router.get('/home', function (req, res, next) {
+router.get('/home', sessionVerify, function (req, res, next) {
   res.render('pages/home')
 })
 
