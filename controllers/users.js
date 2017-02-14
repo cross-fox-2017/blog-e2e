@@ -6,11 +6,12 @@ let config = require('../configs/config.json')
 module.exports = {
   createUser: (req, res) => {
     Users.create({
-      username: req.body.username,
-      password: hash.generate(req.body.password),
-      email: req.body.email
-    }).then(function (data) {
-      res.send(data)
+      username: req.body.username_reg,
+      password: hash.generate(req.body.password_reg),
+      email: req.body.email_reg
+    }).then(function () {
+      res.redirect('/')
+    // res.send(data)
     }).catch(function (err) {
       res.send(err)
     })
@@ -57,7 +58,7 @@ module.exports = {
           token: token
         })
       } else {
-        res.json({s: false, m: 'Authentication failed. Wrong password.'})
+        res.send({s: false, m: 'Authentication failed. Wrong password.'})
       }
     }).catch(function () {
       res.send({s: false, m: 'Authentication failed. User not found.'})

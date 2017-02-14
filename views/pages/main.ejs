@@ -1,0 +1,45 @@
+<% include ../partials/header %>
+  <nav class="navbar">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Kaioo's Blog</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="#">Lorem Ipsum</a></li>
+        <li><a href="#">Lorem Ipsum</a></li>
+        <li><a href="#">Lorem Ipsum</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6 offset-m3 login-form">
+        <div class="card" style="background-color: hsl(148, 52%, 98%);">
+          <div class="card-content white-text">
+            <span class="card-title" style="color: #006666;">Sign In</span>
+            </br>
+            <div class="row">
+              <form class="col s12" method="post">
+                <div class="row">
+                  <div class="input-field col s12" style="color: #006666;">
+                    <input placeholder="Username" id="username" name="username" type="text" class="validate">
+                    <label for="username">Username</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="input-field col s12" style="color: #006666;">
+                    <input placeholder="Password" id="password" name="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                  </div>
+                </div>
+              </form>
+              <button onclick="login()" type="submit" class="waves-effect waves-light btn teal darken-3">Login</button>
+            </div>
+          </div>
+          <div class="card-action">
+            <a href="/register"><span class="light-blue-text text-accent-2">Register</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% include ../partials/footer %>

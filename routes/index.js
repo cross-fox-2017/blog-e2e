@@ -5,9 +5,16 @@ const userController = require('../controllers/users')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.send({
-    message: 'You are in home'
-  })
+  res.render('pages/main')
+})
+
+router.get('/home', function (req, res, next) {
+  // if(req.body.token)
+  res.render('pages/home')
+})
+
+router.get('/register', function (req, res, next) {
+  res.render('pages/register')
 })
 
 router.get('/api', function (req, res, next) {
