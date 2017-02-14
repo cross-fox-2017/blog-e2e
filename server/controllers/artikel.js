@@ -24,10 +24,13 @@ module.exports = {
   },
 
   update : function(req, res, next) {
-    Blog.findOneAndUpdate({_id: req.params.id},{judul: req.body.judul})
+    Blog.findOneAndUpdate({_id: req.params.id},{
+      judul : req.body.judul,
+      isi : req.body.isi,
+      penulis : req.body.penulis})
       .then(function(result){
         res.send(result)
-        console.log(res);
+        // console.log(res);
       })
       .catch(function(err){
         res.json('error')
