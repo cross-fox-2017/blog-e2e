@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+  <div class="container">
+    <div class="row">
+      <h3 style="color: #006666;">Update Article</h3>
+      </br>
+      <form action="/api/articles/<%= id %>" method="post">
+        <div class="form-group">
+          <label for="title_update">Title:</label>
+          <input type="text" class="form-control" name="title_update" id="title_update" value="" placeholder="Title">
+        </div>
+        <div class="form-group">
+          <label for="content_update">Content:</label>
+          <textarea rows="10" cols="50" type="text" class="form-control" name="content_update" id="content_update" value="" style="padding:10px; margin: 10px 0px; border-radius: 4px; border-color: grey;"></textarea>
+        </div>
+        <button id="update" type="submit" class="waves-effect waves-light btn teal darken-3">Update</button>
+      </form>
+      </br>
+      <hr>
+      <label>Back to Home</label>
+      <a href="/home">HOME</a>
+    </div>
+  </div>
+<% include ../partials/footer %>
