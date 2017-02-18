@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
     <!-- font -->
@@ -13,8 +13,8 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <title>Radit's Mini Blog</title>
   </head>
   <body>
@@ -27,34 +27,34 @@
         <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Title</label>
             <div class="col-sm-10">
-              <input id="title-input" type="text" class="form-control" id="title" placeholder="Title">
+              <input id="title-input" type="text" class="form-control" id="title">
             </div>
         </div>
 
         <div class="form-group">
           <label for="author" class="col-sm-2 control-label">Author</label>
           <div class="col-sm-10">
-            <input id="author-input" type="text" class="form-control" id="author" placeholder="Author">
+            <input id="author-input" type="text" class="form-control" id="author">
           </div>
         </div>
 
         <div class="form-group">
           <label for="article" class="col-sm-2 control-label">Article</label>
           <div class="col-sm-10">
-            <textarea id="article-input" type="text" class="form-control" id="article" placeholder="Article" rows="3"></textarea>
+            <textarea id="article-input" type="text" class="form-control" id="article" rows="3"></textarea>
           </div>
         </div>
 
         <div class="form-group">
           <label for="category" class="col-sm-2 control-label">Category</label>
           <div class="col-sm-10">
-            <input id="category-input" type="text" class="form-control" id="category" placeholder="category" rows="3"></input>
+            <input id="category-input" type="text" class="form-control" id="category" rows="3"></input>
           </div>
         </div>
 
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button onclick="newPost()" type="submit" class="waves-effect btn">Submit</button>
+            <a id="submit-new-blog" onclick="newPost()" class="waves-effect btn">Submit</a>
           </div>
         </div>
       </form>
@@ -63,79 +63,176 @@
 
       </div>
 
+      <!-- Modal Structure -->
+      <div id="modalEdit" class="modal">
+
+     </div>
+
     </div>
     <script>
-    $(document).ready(function() {
-      $.ajax({
-        url  : "http://localhost:3000/blogs",
-        type : "GET",
-        success: function(result) {
-          console.log(result);
-          var arrTemp = ""
-          for (var i = 0; i < result.length; i++){
-            arrTemp += `<div class="card horizontal">
-              <div class="card-stacked">
-                <div class="card-content">
-                  <h4>${result[i].title}</h4>
-                  <p class="porsted-author">By : ${result[i].author}</p>
-                  <hr />
-                </div>
-                <div class="card-content">
-                  <p class="posted-article">${result[i].article}</p>
-                </div>
-                <div class="card-content">
-                  <p>Category : <div class="chip">${result[i].category}</div></p>
-                </div>
-                <div class="card-action">
-                  <button id="delete-article${i}" type="submit" class="waves-effect  red btn pull-right">Delete</button>
-                  <button id="update-article${i}" type="submit" class="waves-effect blue btn pull-right">Update</button>
+      $(document).ready(function() {
+
+        $('.modal').modal()
+
+        $.ajax({
+          url  : "http://localhost:3000/blogs",
+          type : "GET",
+          success: function(result) {
+            // console.log(result);
+            var arrTemp = ""
+            for (var i = 0; i < result.length; i++){
+              arrTemp += `<div id="article-${result[i]._id}" class="card horizontal">
+                <div class="card-stacked">
+                  <div class="card-content">
+                    <h4><b>${result[i].title}</b></h4>
+                    <p class="posted-author">By : <u>${result[i].author}</u></p>
+                  </div>
+                  <div class="card-content">
+                    <p id="posted-article-${result[i]._id}" class="posted-article">${result[i].article}</p>
+                  </div>
+                  <div class="card-content">
+                    <p>Category :</p>
+                    <div class="chip">${result[i].category}</div>
+                  </div>
+                  <div class="card-action right-align">
+                    <button id="delete-article-${result[i]._id}" onclick="deletePost('article-${result[i]._id}', '${result[i]._id}')" type="submit" class="waves-effect  red btn pull-right">Delete</button>
+                    <a id="update-article-${result[i]._id}" onclick="preEdit('article-${result[i]._id}', '${result[i]._id}')" type="submit" class="waves-effect blue btn pull-right" href="#modalEdit">Update</a>
+                  </div>
                 </div>
               </div>
-            </div>`
+                `
+            }
+            $('#posted').append(arrTemp)
           }
-          $('#posted').append(arrTemp)
-        }
-    })
-  })
-
-  function newPost() {
-    $(document).ready(function(){
-      $.ajax({
-        url  : "http://localhost:3000/blogs/new",
-        type : "POST",
-        data: {
-          title     : $('#title-input').val(),
-          author    : $('#author-input').val(),
-          article   : $('#article-input').val(),
-          category  : $('#category-input').val()
-        },
-        success: function(result) {
-          var postTemp = ""
-            postTemp += `<div class="card horizontal">
-              <div class="card-stacked">
-                <div class="card-content">
-                  <h4>${result.title}</h4>
-                  <p class="porsted-author">By : ${result.author}</p>
-                  <hr />
-                </div>
-                <div class="card-content">
-                  <p class="posted-article">${result.article}</p>
-                </div>
-                <div class="card-content">
-                  <p>Category : <div class="chip">${result.category}</div></p>
-                </div>
-                <div class="card-action">
-                  <button id="delete-article${i}" type="submit" class="waves-effect  red btn pull-right">Delete</button>
-                  <button id="update-article${i}" type="submit" class="waves-effect blue btn pull-right">Update</button>
-                </div>
-              </div>
-            </div>`
-
-          $('#posted').prepend(postTemp)
-        }
       })
     })
-  }
+
+    function newPost() {
+      $(document).ready(function(){
+        $.ajax({
+          url  : "http://localhost:3000/blogs/new",
+          type : "POST",
+          data: {
+            title     : $('#title-input').val(),
+            author    : $('#author-input').val(),
+            article   : $('#article-input').val(),
+            category  : $('#category-input').val()
+          },
+          success: function(result){
+            $('#posted').append(`<div id="article-${result._id}" class="card horizontal">
+              <div class="card-stacked">
+                <div class="card-content">
+                  <h4><b>${result.title}</b></h4>
+                  <p class="posted-author">By : <u>${result.author}</u></p>
+                </div>
+                <div class="card-content">
+                  <p id="posted-article-${result._id}" class="posted-article">${result.article}</p>
+                </div>
+                <div class="card-content">
+                  <p>Category :</p>
+                  <div class="chip">${result.category}</div>
+                </div>
+                <div class="card-action right-align">
+                  <button id="delete-article-${result._id}" onclick="deletePost('article-${result._id}', '${result._id}')" type="submit" class="waves-effect  red btn pull-right">Delete</button>
+                  <a id="update-article-${result._id}" onclick="preEdit('article-${result._id}', '${result._id}')" type="submit" class="waves-effect blue btn pull-right" href="#modalEdit">Update</a>
+                </div>
+              </div>
+            </div>`)
+          }
+        })
+      })
+    }
+
+    // // reset form
+    // function resetForm (arguments) {
+    //   // body...
+    // }
+
+    // reset form
+    function formReset() {
+      $('#form-delete').remove()
+    }
+
+    // pre edit ajaran pak alex
+    function preEdit(index, id) {
+      formReset()
+
+      let title = $(`#${index} div h4 b`)[0].innerHTML
+      let author = $(`#${index} div p u`)[0].innerHTML
+      let article = $(`#${index} div p`)[1].innerHTML
+      let category = $(`#${index} div div div`)[0].innerHTML
+      var edit = `
+      <div id="form-delete">
+        <div class="modal-content">
+          <div class="form-horizontal">
+                  <div class="form-group">
+                      <label for="title" class="col-sm-2 control-label">Title</label>
+                      <div class="col-sm-10">
+                        <input id="edit-title" type="text" class="form-control" value="${title}">
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="author" class="col-sm-2 control-label">Author</label>
+                    <div class="col-sm-10">
+                      <input id="edit-author" type="text" class="form-control" value="${author}">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="article" class="col-sm-2 control-label">Article</label>
+                    <div class="col-sm-10">
+                      <textarea id="edit-article" type="text" class="form-control" rows="3">${article}</textarea>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="category" class="col-sm-2 control-label">Category</label>
+                    <div class="col-sm-10">
+                      <input id="edit-category" type="text" class="form-control" id="category" value="${category}" rows="3"></input>
+                    </div>
+                  </div>
+
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a id="submit-update"class="modal-action modal-close waves-effect waves-green btn-flat" onclick="update('${index}', '${id}')">Submit</a>
+        </div>
+      </div>
+      `
+      $('#modalEdit').append(edit)
+    }
+
+    function update(index, id) {
+        $.ajax({
+          url  : `http://localhost:3000/blogs/${id}`,
+          type : "PUT",
+          data: {
+            title     : $('#edit-title').val(),
+            author    : $('#edit-author').val(),
+            article   : $('#edit-article').val(),
+            category  : $('#edit-category').val(),
+          },
+          success: function(result) {
+            $(`#${index} div h4 b`)[0].innerHTML = result.title
+            $(`#${index} div p u`)[0].innerHTML  = result.author
+            $(`#${index} div p`)[1].innerHTML    = result.article
+            $(`#${index} div div div`)[0].innerHTML = result.category
+          }
+        })
+    }
+
+    function deletePost(index, id) {
+      $(document).ready(function(){
+        $.ajax({
+          url  : `http://localhost:3000/blogs/${id}`,
+          type : "DELETE",
+          success: function(result) {
+            $(`#${index}`).remove()
+          }
+        })
+      })
+    }
     </script>
   </body>
 </html>

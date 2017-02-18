@@ -18,16 +18,16 @@ module.exports={
       updatedAt : new Date(),
       createdAt : new Date()
     })
-    newBlogs.save((err) =>{
-      res.send({title : req.body.title, author    : req.body.author, article   : req.body.article,})
+    newBlogs.save((err, data) =>{
+      console.log(data);
+      res.send(data)
     })
   },
 
   updateBlog : (req, res) => {
-    blog.findById(req.params.id).then(function (data){
-      data.update({_id: req.body.title, author: req.body.author, article: req.body.article, category  : req.body.category, updatedAt: new Date()})
+    blog.findOneAndUpdate({_id: req.params.id}, {title: req.body.title, author: req.body.author, article: req.body.article, category  : req.body.category, updatedAt: new Date()}, {new: true}, function(err, data){
       res.send(data)
-      })
+    })
   },
 
   //DELETE
