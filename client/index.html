@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+    <title></title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2>Data Resensi Novel</h2>
+      </div>
+      <div class="row">
+        <div class="input-field col s8">
+          <input id="judul" type="text" class="validate" >
+          <label>Judul</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s8">
+          <textarea id="isi" class="materialize-textarea"></textarea>
+          <label>Resensi</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s8">
+          <input id="penulis" type="text" class="validate">
+          <label>Penulis</label>
+        </div>
+      </div>
+      <div class="row">
+        <button class="btn waves-effect waves-light" type="submit" name="action" onclick="buatArtikel()">Submit</button>
+      </div>
+
+    </div>
+
+    <div id="wrapper" class="container">
+    </div>
+
+  </body>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+  <script src="script/index.js"></script>
+
+</html>
