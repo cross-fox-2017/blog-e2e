@@ -1,0 +1,18 @@
+button {
+    margin: 2px;
+}
+
+.posted-article{
+  font-size: 20px
+}
+
+.posted-author{
+  color: rgb(116, 116, 116)
+}
+
+.card{
+  background-color: rgb(253, 253, 253)
+}
+.card:hover{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
