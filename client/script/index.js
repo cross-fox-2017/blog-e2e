@@ -18,7 +18,7 @@ function ready () {
                <a href="#">${item.penulis}</a>
                <div class="row">
                  <a class="waves-effect waves-light btn red lighten-2" onclick="hapusArtikel('${item._id}')">Delete</a>
-                 <a class="waves-effect waves-light btn green lighten-2" href="#modal${item._id}">Update</a>
+                 <a class="update waves-effect waves-light btn green lighten-2" href="#modal${item._id}">Update</a>
                </div>
              </div>
            </div>
